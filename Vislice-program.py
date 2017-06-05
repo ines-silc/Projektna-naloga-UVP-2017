@@ -1,4 +1,5 @@
 import random
+import tkinter as tk
 
 def besede_v_seznam(ime_dadoteke):
     seznam_besed = []
@@ -28,70 +29,99 @@ razdeljena_beseda = razdeli_besedo(beseda)
 
 vzorec = izpisi_vzorec()
 
+stevec_napacnih = 0
+
+
 def spremeni_vzorec(crka):
     if crka in razdeljena_beseda:
         for i, value in enumerate(razdeljena_beseda):
             if value == str(crka):
                 vzorec[i] = value.replace('__', crka)
+        polje.config(text=' '.join(vzorec))
     else:
-        pass
-    return vzorec
-    
-import tkinter as tk
+        global stevec_napacnih
+        stevec_napacnih += 1
+        if stevec_napacnih > 0:
+            slika.create_oval(30, 160, 120, 250)
+        if stevec_napacnih > 1:
+            slika.create_line(75, 160, 75, 50)
+        if stevec_napacnih > 2:
+            slika.create_line(75, 50, 150, 50)
+        if stevec_napacnih > 3:
+            slika.create_line(150, 50, 150, 80)
+        if stevec_napacnih > 4:
+            slika.create_oval(140, 80, 160, 100)
+        if stevec_napacnih > 5:
+            slika.create_line(150, 100, 150, 140)
+        if stevec_napacnih > 6:
+            slika.create_line(150, 115, 160, 125)
+        if stevec_napacnih > 7:
+            slika.create_line(150, 115, 140, 125)
+        if stevec_napacnih > 8:
+            slika.create_line(150, 140, 160, 150)
+        if stevec_napacnih > 9:
+            slika.create_line(150, 140, 140, 150)
+            slika.create_oval(140, 80, 160, 100, fill = 'red')
+            
 
 okno = tk.Tk()
 polje = tk.Label(text=' '.join(vzorec))
-polje.grid(row = 1, column = 5)
-a = tk.Button(okno, text = 'A', command = spremeni_vzorec('A'))
+polje.grid(row = 1, column = 1, columnspan = 10)
+a = tk.Button(okno, text = 'A', command = lambda:spremeni_vzorec('A'))
 a.grid(row = 2, column = 1)
-b = tk.Button(okno, text = 'B', command = spremeni_vzorec('B'))
+
+b = tk.Button(okno, text = 'B', command = lambda:spremeni_vzorec('B'))
 b.grid(row = 2, column = 2)
-c = tk.Button(okno, text = 'C', command = spremeni_vzorec('C'))
+c = tk.Button(okno, text = 'C', command = lambda:spremeni_vzorec('C'))
 c.grid(row = 2, column = 3)
-č = tk.Button(okno, text = 'Č', command = spremeni_vzorec('Č'))
+č = tk.Button(okno, text = 'Č', command = lambda:spremeni_vzorec('Č'))
 č.grid(row = 2, column = 4)
-d = tk.Button(okno, text = 'D', command = spremeni_vzorec('D'))
+d = tk.Button(okno, text = 'D', command = lambda:spremeni_vzorec('D'))
 d.grid(row = 2, column = 5)
-e = tk.Button(okno, text = 'E', command = spremeni_vzorec('E'))
+e = tk.Button(okno, text = 'E', command = lambda:spremeni_vzorec('E'))
 e.grid(row = 2, column = 6)
-f = tk.Button(okno, text = 'F', command = spremeni_vzorec('F'))
+f = tk.Button(okno, text = 'F', command = lambda:spremeni_vzorec('F'))
 f.grid(row = 2, column = 7)
-g = tk.Button(okno, text = 'G', command = spremeni_vzorec('G'))
+g = tk.Button(okno, text = 'G', command = lambda:spremeni_vzorec('G'))
 g.grid(row = 2, column = 8)
-h = tk.Button(okno, text = 'H', command = spremeni_vzorec('H'))
+h = tk.Button(okno, text = 'H', command = lambda:spremeni_vzorec('H'))
 h.grid(row = 2, column = 9)
-i = tk.Button(okno, text = 'I', command = spremeni_vzorec('I'))
+i = tk.Button(okno, text = 'I', command = lambda:spremeni_vzorec('I'))
 i.grid(row = 2, column = 10)
-j = tk.Button(okno, text = 'J', command = spremeni_vzorec('J'))
+j = tk.Button(okno, text = 'J', command = lambda:spremeni_vzorec('J'))
 j.grid(row = 3, column = 1)
-k = tk.Button(okno, text = 'K', command = spremeni_vzorec('K'))
+k = tk.Button(okno, text = 'K', command = lambda:spremeni_vzorec('K'))
 k.grid(row = 3, column = 2)
-l = tk.Button(okno, text = 'L', command = spremeni_vzorec('L'))
+l = tk.Button(okno, text = 'L', command = lambda:spremeni_vzorec('L'))
 l.grid(row = 3, column = 3)
-m = tk.Button(okno, text = 'M', command = spremeni_vzorec('M'))
+m = tk.Button(okno, text = 'M', command = lambda:spremeni_vzorec('M'))
 m.grid(row = 3, column = 4)
-n = tk.Button(okno, text = 'N', command = spremeni_vzorec('N'))
+n = tk.Button(okno, text = 'N', command = lambda:spremeni_vzorec('N'))
 n.grid(row = 3, column = 5)
-o = tk.Button(okno, text = 'O', command = spremeni_vzorec('O'))
+o = tk.Button(okno, text = 'O', command = lambda:spremeni_vzorec('O'))
 o.grid(row = 3, column = 6)
-p = tk.Button(okno, text = 'P', command = spremeni_vzorec('P'))
+p = tk.Button(okno, text = 'P', command = lambda:spremeni_vzorec('P'))
 p.grid(row = 3, column = 7)
-r = tk.Button(okno, text = 'R', command = spremeni_vzorec('R'))
+r = tk.Button(okno, text = 'R', command = lambda:spremeni_vzorec('R'))
 r.grid(row = 3, column = 8)
-s = tk.Button(okno, text = 'S', command = spremeni_vzorec('S'))
+s = tk.Button(okno, text = 'S', command = lambda:spremeni_vzorec('S'))
 s.grid(row = 3, column = 9)
-š = tk.Button(okno, text = 'Š', command = spremeni_vzorec('Š'))
+š = tk.Button(okno, text = 'Š', command = lambda:spremeni_vzorec('Š'))
 š.grid(row = 3, column = 10)
-t = tk.Button(okno, text = 'T', command = spremeni_vzorec('T'))
-t.grid(row = 4, column = 1)
-u = tk.Button(okno, text = 'U', command = spremeni_vzorec('U'))
-u.grid(row = 4, column = 2)
-v = tk.Button(okno, text = 'V', command = spremeni_vzorec('V'))
-v.grid(row = 4, column = 3)
-z = tk.Button(okno, text = 'Z', command = spremeni_vzorec('Z'))
-z.grid(row = 4, column = 4)
-ž = tk.Button(okno, text = 'Ž', command = spremeni_vzorec('Ž'))
-ž.grid(row = 4, column = 5)
+t = tk.Button(okno, text = 'T', command = lambda:spremeni_vzorec('T'))
+t.grid(row = 4, column = 3)
+u = tk.Button(okno, text = 'U', command = lambda:spremeni_vzorec('U'))
+u.grid(row = 4, column = 4)
+v = tk.Button(okno, text = 'V', command = lambda:spremeni_vzorec('V'))
+v.grid(row = 4, column = 5)
+z = tk.Button(okno, text = 'Z', command = lambda:spremeni_vzorec('Z'))
+z.grid(row = 4, column = 6)
+ž = tk.Button(okno, text = 'Ž', command = lambda:spremeni_vzorec('Ž'))
+ž.grid(row = 4, column = 7)
+
+slika = tk.Canvas(height=200, width=200, bd=1,
+                  highlightthickness=1, relief='ridge')
+slika.grid(row = 5, column = 1, columnspan = 10)
 
 
 okno.mainloop()
