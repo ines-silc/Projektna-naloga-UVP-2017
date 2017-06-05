@@ -29,18 +29,18 @@ razdeljena_beseda = razdeli_besedo(beseda)
 vzorec = izpisi_vzorec()
 
 def spremeni_vzorec(crka):
-    if str(crka) in razdeljena_beseda:
+    if crka in razdeljena_beseda:
         for i, value in enumerate(razdeljena_beseda):
             if value == str(crka):
-                vzorec[i] = value.replace('__', str(crka))
+                vzorec[i] = value.replace('__', crka)
     else:
-        print('Naprej')
+        pass
     return vzorec
     
 import tkinter as tk
 
 okno = tk.Tk()
-polje = tk.Label(text=str(vzorec))
+polje = tk.Label(text=' '.join(vzorec))
 polje.grid(row = 1, column = 5)
 a = tk.Button(okno, text = 'A', command = spremeni_vzorec('A'))
 a.grid(row = 2, column = 1)
@@ -92,6 +92,7 @@ z = tk.Button(okno, text = 'Z', command = spremeni_vzorec('Z'))
 z.grid(row = 4, column = 4)
 ž = tk.Button(okno, text = 'Ž', command = spremeni_vzorec('Ž'))
 ž.grid(row = 4, column = 5)
+
 
 okno.mainloop()
 
