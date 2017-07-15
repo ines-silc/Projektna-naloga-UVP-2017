@@ -38,6 +38,14 @@ def spremeni_vzorec(crka):
             if value == str(crka):
                 vzorec[i] = value.replace('__', crka)
         polje.config(text=' '.join(vzorec))
+        if razdeljena_beseda == vzorec:
+            zakljucek = tk.Toplevel()
+            zakljucek.title('KONEC IGRE!')
+            poskusi = tk.Message(zakljucek, text='Zmagal si, čestitamo!')
+            poskusi.pack()
+            b = tk.Button(zakljucek, text='Nova igra',
+                          command=zakljucek.destroy)
+            b.pack()
     else:
         global stevec_napacnih
         stevec_napacnih += 1
@@ -62,6 +70,13 @@ def spremeni_vzorec(crka):
         if stevec_napacnih > 9:
             slika.create_line(150, 140, 140, 150)
             slika.create_oval(140, 80, 160, 100, fill = 'red')
+            zakljucek = tk.Toplevel()
+            zakljucek.title('KONEC IGRE!')
+            poskusi = tk.Message(zakljucek, text='Izgubil si!')
+            poskusi.pack()
+            b = tk.Button(zakljucek, text='Nova igra',
+                          command=zakljucek.destroy)
+            b.pack()
             
 
 okno = tk.Tk()
@@ -125,4 +140,3 @@ slika.grid(row = 5, column = 1, columnspan = 10)
 
 
 okno.mainloop()
-
