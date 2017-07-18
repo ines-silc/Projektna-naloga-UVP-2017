@@ -40,6 +40,7 @@ def nova_igra(pop_up_okence):
     pop_up_okence.destroy()
 
 def spremeni_vzorec(crka):
+    global stevec_napacnih
     if crka in razdeljena_beseda:
         for i, value in enumerate(razdeljena_beseda):
             if value == str(crka):
@@ -53,8 +54,9 @@ def spremeni_vzorec(crka):
             b = tk.Button(zakljucek, text='Nova igra',
                           command = lambda:nova_igra(zakljucek))
             b.pack()
+            stevec_napacnih = 0
+            #še vedno ne spremeni pravilno vzorca
     else:
-        global stevec_napacnih
         stevec_napacnih += 1
         if stevec_napacnih > 0:
             slika.create_oval(30, 160, 120, 250)
@@ -77,6 +79,7 @@ def spremeni_vzorec(crka):
         if stevec_napacnih > 9:
             slika.create_line(150, 140, 140, 150)
             slika.create_oval(140, 80, 160, 100, fill = 'red')
+            stevec_napacnih = 0
             zakljucek = tk.Toplevel()
             zakljucek.title('KONEC IGRE!')
             poskusi = tk.Message(zakljucek, text='Izgubil si!')
@@ -84,6 +87,7 @@ def spremeni_vzorec(crka):
             b = tk.Button(zakljucek, text='Nova igra',
                           command= lambda: nova_igra(zakljucek))
             b.pack()
+            
 
 
 okno = tk.Tk()
