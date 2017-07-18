@@ -13,7 +13,7 @@ seznam_besed = besede_v_seznam('Besede.txt')
 
 beseda = random.choice(besede_v_seznam('Besede.txt'))
 
-def izpisi_vzorec():
+def izpisi_vzorec(beseda):
     vzorec = []
     for x in range(len(beseda)):
         vzorec.append('__')
@@ -27,18 +27,18 @@ def razdeli_besedo(beseda):
 
 razdeljena_beseda = razdeli_besedo(beseda)
 
-vzorec = izpisi_vzorec()
+vzorec = izpisi_vzorec(beseda)
 
 stevec_napacnih = 0
 
 def nova_igra(pop_up_okence):
     slika.delete("all")
     beseda = random.choice(besede_v_seznam('Besede.txt'))
-    vzorec = izpisi_vzorec()
+    vzorec = izpisi_vzorec(beseda)
     polje.config(text=' '.join(vzorec))
     stevec_napacnih = 0
     pop_up_okence.destroy()
-    
+
 def spremeni_vzorec(crka):
     if crka in razdeljena_beseda:
         for i, value in enumerate(razdeljena_beseda):
@@ -84,14 +84,13 @@ def spremeni_vzorec(crka):
             b = tk.Button(zakljucek, text='Nova igra',
                           command= lambda: nova_igra(zakljucek))
             b.pack()
-            
+
 
 okno = tk.Tk()
 polje = tk.Label(text=' '.join(vzorec))
 polje.grid(row = 1, column = 1, columnspan = 10)
 a = tk.Button(okno, text = 'A', command = lambda:spremeni_vzorec('A'))
 a.grid(row = 2, column = 1)
-
 b = tk.Button(okno, text = 'B', command = lambda:spremeni_vzorec('B'))
 b.grid(row = 2, column = 2)
 c = tk.Button(okno, text = 'C', command = lambda:spremeni_vzorec('C'))
