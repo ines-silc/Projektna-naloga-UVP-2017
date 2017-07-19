@@ -32,11 +32,14 @@ vzorec = izpisi_vzorec(beseda)
 stevec_napacnih = 0
 
 def nova_igra(pop_up_okence):
+    global beseda
+    global razdeljena_beseda
+    global vzorec
     slika.delete("all")
     beseda = random.choice(besede_v_seznam('Besede.txt'))
+    razdeljena_beseda = razdeli_besedo(beseda)
     vzorec = izpisi_vzorec(beseda)
     polje.config(text=' '.join(vzorec))
-    stevec_napacnih = 0
     pop_up_okence.destroy()
 
 def spremeni_vzorec(crka):
@@ -52,10 +55,9 @@ def spremeni_vzorec(crka):
             poskusi = tk.Message(zakljucek, text='Zmagal si, čestitamo!')
             poskusi.pack()
             b = tk.Button(zakljucek, text='Nova igra',
-                          command = lambda:nova_igra(zakljucek))
+                          command = lambda: nova_igra(zakljucek))
             b.pack()
             stevec_napacnih = 0
-            #še vedno ne spremeni pravilno vzorca
     else:
         stevec_napacnih += 1
         if stevec_napacnih > 0:
@@ -87,7 +89,7 @@ def spremeni_vzorec(crka):
             b = tk.Button(zakljucek, text='Nova igra',
                           command= lambda: nova_igra(zakljucek))
             b.pack()
-            
+
 
 
 okno = tk.Tk()
