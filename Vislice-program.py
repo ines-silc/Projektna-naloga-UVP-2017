@@ -11,6 +11,9 @@ def besede_v_seznam(ime_dadoteke):
 
 seznam_besed = besede_v_seznam('Besede.txt')
 
+zmage = 0
+porazi = 0
+
 class Vislice:
 
     def __init__(self):
@@ -20,8 +23,8 @@ class Vislice:
         self.stevec_napacnih = 0
         self.okno = tk.Tk()
         self.okno.title('Vislice')
-        self.slika = tk.Canvas(self.okno, height=400, width=400, bd=1, highlightthickness=1,
-                    relief='ridge')
+        self.slika = tk.Canvas(self.okno, height=400, width=400, bd=1,
+                    relief='ridge', bg = 'seashell2')
         self.slika.grid(row = 5, column = 1, columnspan = 20)
         self.polje = tk.Label(text=' '.join(self.vzorec))
         self.polje.grid(row = 1, column = 1, columnspan = 20)
@@ -48,21 +51,31 @@ class Vislice:
         pop_up_okence.destroy()
 
     def spremeni_vzorec(self, crka):
-
+        global zmage
+        global porazi
         if crka in self.razdeljena_beseda:
             for i, value in enumerate(self.razdeljena_beseda):
                 if value == str(crka):
                     self.vzorec[i] = value.replace('__', crka)
             self.polje.config(text=' '.join(self.vzorec))
             if self.razdeljena_beseda == self.vzorec:
+                self.stevec_napacnih = 0
+                zmage += 1
                 zakljucek = tk.Toplevel()
                 zakljucek.title('KONEC IGRE!')
-                poskusi = tk.Message(zakljucek, text='Zmagal si, čestitamo!')
-                poskusi.pack()
-                b = tk.Button(zakljucek, text='Nova igra',
-                            command = lambda: self.nova_igra(zakljucek))
-                b.pack()
-                self.stevec_napacnih = 0
+                poskusi = tk.Label(zakljucek, text=('Zmagal si!\n'+
+                            'Število zmag: {}\n'+
+                            'Število porazov: {}').format(zmage, porazi),
+                            anchor = 'center', width=20)
+                poskusi.grid(row = 0, rowspan = 3, column = 1, columnspan = 3)
+                nov_level = tk.Button(zakljucek, text='Nova igra',
+                            command= lambda: self.nova_igra(zakljucek),
+                            bg = 'medium sea green')
+                nov_level.grid(row = 3, column = 1)
+                konec_igre = tk.Button(zakljucek, text='Izhod',
+                            command = lambda: self.okno.destroy(),
+                            bg = 'tomato')
+                konec_igre.grid(row = 3, column = 3, ipadx = 10)
         else:
             self.stevec_napacnih += 1
             if self.stevec_napacnih > 0:
@@ -84,16 +97,29 @@ class Vislice:
             if self.stevec_napacnih > 8:
                 self.slika.create_line(300, 280, 320, 300)
             if self.stevec_napacnih > 9:
+                porazi += 1
                 self.slika.create_line(300, 280, 280, 300)
-                self.slika.create_oval(280, 160, 320, 200, fill = 'red')
+                self.slika.create_line(290, 190, 310, 190)
+                self.slika.create_line(290, 170, 295, 180)
+                self.slika.create_line(295, 170, 290, 180)
+                self.slika.create_line(305, 170, 310, 180)
+                self.slika.create_line(310, 170, 305, 180)
                 self.stevec_napacnih = 0
                 zakljucek = tk.Toplevel()
                 zakljucek.title('KONEC IGRE!')
-                poskusi = tk.Message(zakljucek, text='Izgubil si!')
-                poskusi.pack()
-                b = tk.Button(zakljucek, text='Nova igra',
-                            command= lambda: self.nova_igra(zakljucek))
-                b.pack()
+                poskusi = tk.Label(zakljucek, text=('Izgubil si!\n'+
+                            'Število zmag: {}\n'+
+                            'Število porazov: {}').format(zmage, porazi),
+                            anchor = 'center', width=20)
+                poskusi.grid(row = 0, rowspan = 3, column = 1, columnspan = 3)
+                nov_level = tk.Button(zakljucek, text='Nova igra',
+                            command= lambda: self.nova_igra(zakljucek),
+                            bg = 'medium sea green')
+                nov_level.grid(row = 3, column = 1)
+                konec_igre = tk.Button(zakljucek, text='Izhod',
+                            command = lambda: self.okno.destroy(),
+                            bg = 'tomato')
+                konec_igre.grid(row = 3, column = 3, ipadx = 10)
 
     def abeceda(self):
         a = tk.Button(self.okno, text = 'A',
@@ -152,7 +178,7 @@ class Vislice:
         r.grid(row = 3, column = 15, columnspan = 2, ipadx = 10.5)
         s = tk.Button(self.okno, text = 'S',
             command = lambda:self.spremeni_vzorec('S'), bg = 'SlateGray2')
-        s.grid(row = 3, column = 17, columnspan = 2, ipadx = 10.5)
+        s.grid(row = 3, column = 17, columnspan = 2, ipadx = 11)
         š = tk.Button(self.okno, text = 'Š',
             command = lambda:self.spremeni_vzorec('Š'), bg = 'SlateGray2')
         š.grid(row = 3, column = 19, columnspan = 2, ipadx = 10.5)
