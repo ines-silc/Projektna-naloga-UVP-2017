@@ -4,11 +4,19 @@ import tkinter as tk
 # Najprej naredim seznam besed iz dadoteke, da se bo lahko beseda izbirala
 def besede_v_seznam(ime_dadoteke):
     seznam_besed = []
-    with open(ime_dadoteke) as besede:
+    with open(ime_dadoteke, encoding='Windows-1250') as besede:
         for vrstica in besede:
             s2 = vrstica.strip()
             seznam_besed.append(s2)
     return seznam_besed
+
+def center(pop_up_okence, sirina, visina):
+    ws = pop_up_okence.winfo_screenwidth()
+    hs = pop_up_okence.winfo_screenheight()
+    x = (ws/2) - (sirina/2)
+    y = (hs/2) - (visina/2)
+    pop_up_okence.geometry('%dx%d+%d+%d' % (sirina, visina, x, y))
+    pop_up_okence.update_idletasks()
 
 seznam_besed = besede_v_seznam('Besede.txt')
 
@@ -33,6 +41,7 @@ class Vislice:
         self.razdeljena_beseda = self.razdeli_besedo(self.beseda)
         self.stevec_napacnih = 0
         self.okno = tk.Tk()
+        center(self.okno, 400, 500)
         self.okno.title('Vislice')
         self.slika = tk.Canvas(self.okno, height=400, width=400, bd=1,
                     relief='ridge', bg = 'seashell2')
@@ -126,13 +135,14 @@ class Vislice:
                             command = lambda: self.okno.destroy(),
                             bg = 'tomato')
                 konec_igre.grid(row = 3, column = 3, ipadx = 10)
+                center(zakljucek, 130, 80)
         else:
             # Če se vnešena črka ne ujema z nobeno črko v besedi se začne
             # izrisovati slika. Igralec ima na voljo 9 napačnih vnosov, pri
             # desetem je igra izgubljena, prikaže se podobno okno kot pri
             # zmagovalcu, le da je tu dodana še pravilna beseda
             self.stevec_napacnih += 1
-            if self.stevec_napacnih == 1:
+            if self.stevec_napacnih > 0:
                 self.slika.create_oval(60, 320, 240, 500)
             if self.stevec_napacnih > 1:
                 self.slika.create_line(150, 320, 150, 100)
@@ -175,6 +185,7 @@ class Vislice:
                             command = lambda: self.okno.destroy(),
                             bg = 'tomato')
                 konec_igre.grid(row = 5, column = 3, ipadx = 10)
+                center(zakljucek, 210, 100)
 
 # Na koncu še zaženemo program
 Vislice()
