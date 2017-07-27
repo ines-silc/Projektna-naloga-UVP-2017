@@ -4,7 +4,7 @@ import tkinter as tk
 # Najprej naredim seznam besed iz dadoteke, da se bo lahko beseda izbirala
 def besede_v_seznam(ime_dadoteke):
     seznam_besed = []
-    with open(ime_dadoteke, encoding='Windows-1250') as besede:
+    with open(ime_dadoteke, encoding='utf-8') as besede:
         for vrstica in besede:
             s2 = vrstica.strip()
             seznam_besed.append(s2)
