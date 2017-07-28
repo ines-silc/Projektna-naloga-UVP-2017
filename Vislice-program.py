@@ -10,15 +10,17 @@ def besede_v_seznam(ime_dadoteke):
             seznam_besed.append(s2)
     return seznam_besed
 
-def center(pop_up_okence, sirina, visina):
-    ws = pop_up_okence.winfo_screenwidth()
-    hs = pop_up_okence.winfo_screenheight()
+seznam_besed = besede_v_seznam('Besede.txt')
+
+# Funkcija postavi igro na sredino zaslona in postavi pop-up okna na sredino
+# igre
+def center(okno, sirina, visina):
+    ws = okno.winfo_screenwidth()
+    hs = okno.winfo_screenheight()
     x = (ws/2) - (sirina/2)
     y = (hs/2) - (visina/2)
-    pop_up_okence.geometry('%dx%d+%d+%d' % (sirina, visina, x, y))
-    pop_up_okence.update_idletasks()
-
-seznam_besed = besede_v_seznam('Besede.txt')
+    okno.geometry('%dx%d+%d+%d' % (sirina, visina, x, y))
+    okno.update_idletasks()
 
 # Slovar črk rabimo za abecedo v grafičnem vmesniku, indeksi so liha števila,
 # ker se je vsak stolpec širok dva stolpca, da je lahko slika večja
@@ -44,20 +46,22 @@ class Vislice:
         center(self.okno, 400, 500)
         self.okno.title('Vislice')
         self.slika = tk.Canvas(self.okno, height=400, width=400, bd=1,
-                    relief='ridge', bg = 'seashell2')
+                    relief='ridge', bg = 'seashell')
         self.slika.grid(row = 5, column = 1, columnspan = 20)
         self.polje = tk.Label(text=' '.join(self.vzorec))
         self.polje.grid(row = 1, column = 1, columnspan = 20)
         self.abeceda = self.abeceda()
 
-    # Besedo spremenimo v vzorec oblike '__ __ ... __ __' za izpisovanje na vmesniku
+    # Besedo spremenimo v vzorec oblike '__ __ ... __ __' za izpisovanje na
+    # vmesniku
     def izpisi_vzorec(self, beseda):
         vzorec = []
         for x in range(len(self.beseda)):
             vzorec.append('__')
         return vzorec
 
-    # Besedo razdelimo na črke, da se bodo le te lahko menjale pri spremembi vzorca
+    # Besedo razdelimo na črke, da se bodo le te lahko menjale pri spremembi
+    # vzorca
     def razdeli_besedo(self, beseda):
         razdeljena_beseda = []
         for x in self.beseda:
@@ -74,7 +78,9 @@ class Vislice:
         self.polje.config(text=' '.join(self.vzorec))
         pop_up_okence.destroy()
 
-    # Sestavimo samo abecedo s pomočjo slovarja, ki ga imamo napisanega na začetku
+    # Sestavimo samo abecedo s pomočjo slovarja, ki ga imamo napisanega na
+    # začetku (ker je spremenljivki vedno ime a moramo namesto lambda: napisati
+    # lambda i = i: da funkcijo prisilimo, da vsakič naredi novo spremenljivko)
     def abeceda(self):
         global slovar_crk
         for i in slovar_crk:
@@ -100,8 +106,8 @@ class Vislice:
         # Dodamo funkcijo ki zažene grafični vmesnik
         self.okno.mainloop()
 
-    # S pomočjo izpisane abecede dobimo črko, če je v dani besedi, potem mesto na
-    # vzorcu zamenja črka, če ne se na platnu izriše del slike. Ko je slika
+    # S pomočjo izpisane abecede dobimo črko, če je v dani besedi, potem mesto
+    # na vzorcu zamenja črka, če ne se na platnu izriše del slike. Ko je slika
     # narisana je igre konec
     def spremeni_vzorec(self, crka):
         global zmage
