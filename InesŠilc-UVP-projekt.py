@@ -6,8 +6,8 @@ def besede_v_seznam(ime_datoteke):
     seznam_besed = []
     with open(ime_datoteke, encoding='utf-8') as besede:
         for vrstica in besede:
-            s2 = vrstica.strip()
-            seznam_besed.append(s2)
+            beseda = vrstica.strip()
+            seznam_besed.append(beseda)
     return seznam_besed
 
 seznam_besed = besede_v_seznam('Besede.txt')
@@ -46,7 +46,7 @@ class Vislice:
         center(self.okno, 400, 500)
         self.okno.title('Vislice')
         self.slika = tk.Canvas(self.okno, height=400, width=400, bd=1,
-                    relief='ridge', bg = 'seashell')
+                    relief='ridge')
         self.slika.grid(row = 5, column = 1, columnspan = 20)
         self.polje = tk.Label(text=' '.join(self.vzorec))
         self.polje.grid(row = 1, column = 1, columnspan = 20)
