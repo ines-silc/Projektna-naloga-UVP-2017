@@ -12,22 +12,7 @@ def besede_v_seznam(ime_datoteke):
 
 seznam_besed = besede_v_seznam('Besede.txt')
 
-# Funkcija postavi igro na sredino zaslona in postavi pop-up okna na sredino
-# igre
-def center(okno, sirina, visina):
-    ws = okno.winfo_screenwidth()
-    hs = okno.winfo_screenheight()
-    x = (ws/2) - (sirina/2)
-    y = (hs/2) - (visina/2)
-    okno.geometry('%dx%d+%d+%d' % (sirina, visina, x, y))
-    okno.update_idletasks()
-
-# Slovar črk rabimo za abecedo v grafičnem vmesniku, indeksi so liha števila,
-# ker se je vsak stolpec širok dva stolpca, da je lahko slika večja
-slovar_crk = {1:'A', 3:'B', 5:'C', 7:'Č', 9:'D', 11:'E', 13:'F', 15:'G',
-                17:'H', 19:'I', 21:'J', 23:'K', 25:'L', 27:'M', 29:'N', 31:'O',
-                33:'P', 35:'R', 37:'S', 39:'Š', 41:'T', 43:'U', 45:'V', 47:'Z',
-                49:'Ž'}
+# self.slovar črk rabimo za abecedo v grafičnem vmesniku
 
 # Na začetku nastavimo števca zmag in porazov, da lahko igralec ve koliko iger
 # je že odigral.
@@ -43,14 +28,18 @@ class Vislice:
         self.razdeljena_beseda = self.razdeli_besedo(self.beseda)
         self.stevec_napacnih = 0
         self.okno = tk.Tk()
-        center(self.okno, 400, 500)
         self.okno.title('Vislice')
-        self.slika = tk.Canvas(self.okno, height=400, width=400, bd=1,
+        self.slika = tk.Canvas(self.okno, height=400, width=400, bd=2,
                     relief='ridge')
         self.slika.grid(row = 5, column = 1, columnspan = 20)
         self.polje = tk.Label(text=' '.join(self.vzorec))
         self.polje.grid(row = 1, column = 1, columnspan = 20)
+        self.slovar_crk = ['O', 'A', 'B', 'C', 'Č', 'D', 'E', 'F', 'G', 'H',
+                        'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S','Š',
+                        'T', 'U', 'V', 'Z', 'Ž']
+        self.seznam = []
         self.abeceda = self.abeceda()
+
 
     # Besedo spremenimo v vzorec oblike '__ __ ... __ __' za izpisovanje na
     # vmesniku
@@ -77,31 +66,113 @@ class Vislice:
         self.vzorec = self.izpisi_vzorec(self.beseda)
         self.polje.config(text=' '.join(self.vzorec))
         pop_up_okence.destroy()
+        self.seznam = []
+        self.abeceda()
 
-    # Sestavimo samo abecedo s pomočjo slovarja, ki ga imamo napisanega na
+    # Sestavimo samo abecedo s pomočjo self.slovarja, ki ga imamo napisanega na
     # začetku (ker je spremenljivki vedno ime a moramo namesto lambda: napisati
     # lambda i = i: da funkcijo prisilimo, da vsakič naredi novo spremenljivko)
     def abeceda(self):
-        global slovar_crk
-        for i in slovar_crk:
-            if 1 <= i < 21:
-                a = tk.Button(self.okno, text = slovar_crk[i],
-                command = lambda i=i: self.spremeni_vzorec(slovar_crk[i]),
-                bg = 'SlateGray1')
-                a.grid(row = 2, column = i, columnspan = 2,
-                sticky= 'w'+'e'+'n'+'s')
-            if 21 <= i < 41:
-                a = tk.Button(self.okno, text = slovar_crk[i],
-                command = lambda i=i: self.spremeni_vzorec(slovar_crk[i]),
-                bg = 'SlateGray2')
-                a.grid(row = 3, column = i-20, columnspan = 2,
-                sticky= 'w'+'e'+'n'+'s')
-            if i >= 41:
-                a = tk.Button(self.okno, text = slovar_crk[i],
-                command = lambda i=i: self.spremeni_vzorec(slovar_crk[i]),
-                bg = 'SlateGray3')
-                a.grid(row = 4, column = i-35, columnspan = 2,
-                sticky= 'w'+'e'+'n'+'s')
+        a = tk.Button(self.okno, text = 'A',
+            command = lambda:self.spremeni_vzorec('A'), bg = 'SlateGray1')
+        a.grid(row = 2, column = 1, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(a)
+        b = tk.Button(self.okno, text = 'B',
+            command = lambda:self.spremeni_vzorec('B'), bg = 'SlateGray1')
+        b.grid(row = 2, column = 3, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(b)
+        c = tk.Button(self.okno, text = 'C',
+            command = lambda:self.spremeni_vzorec('C'), bg = 'SlateGray1')
+        c.grid(row = 2, column = 5, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(c)
+        č = tk.Button(self.okno, text = 'Č',
+            command = lambda:self.spremeni_vzorec('Č'), bg = 'SlateGray1')
+        č.grid(row = 2, column = 7, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(č)
+        d = tk.Button(self.okno, text = 'D',
+            command = lambda:self.spremeni_vzorec('D'), bg = 'SlateGray1')
+        d.grid(row = 2, column = 9, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(d)
+        e = tk.Button(self.okno, text = 'E',
+            command = lambda:self.spremeni_vzorec('E'), bg = 'SlateGray1')
+        e.grid(row = 2, column = 11, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(e)
+        f = tk.Button(self.okno, text = 'F',
+            command = lambda:self.spremeni_vzorec('F'), bg = 'SlateGray1')
+        f.grid(row = 2, column = 13, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(f)
+        g = tk.Button(self.okno, text = 'G',
+            command = lambda:self.spremeni_vzorec('G'), bg = 'SlateGray1')
+        g.grid(row = 2, column = 15, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(g)
+        h = tk.Button(self.okno, text = 'H',
+            command = lambda:self.spremeni_vzorec('H'), bg = 'SlateGray1')
+        h.grid(row = 2, column = 17, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(h)
+        i = tk.Button(self.okno, text = 'I',
+            command = lambda:self.spremeni_vzorec('I'), bg = 'SlateGray1')
+        i.grid(row = 2, column = 19, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(i)
+        j = tk.Button(self.okno, text = 'J',
+            command = lambda:self.spremeni_vzorec('J'), bg = 'SlateGray2')
+        j.grid(row = 3, column = 1, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(j)
+        k = tk.Button(self.okno, text = 'K',
+            command = lambda:self.spremeni_vzorec('K'), bg = 'SlateGray2')
+        k.grid(row = 3, column = 3, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(k)
+        l = tk.Button(self.okno, text = 'L',
+            command = lambda:self.spremeni_vzorec('L'), bg = 'SlateGray2')
+        l.grid(row = 3, column = 5, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(l)
+        m = tk.Button(self.okno, text = 'M',
+            command = lambda:self.spremeni_vzorec('M'), bg = 'SlateGray2')
+        m.grid(row = 3, column = 7, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(m)
+        n = tk.Button(self.okno, text = 'N',
+            command = lambda:self.spremeni_vzorec('N'), bg = 'SlateGray2')
+        n.grid(row = 3, column = 9, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(n)
+        o = tk.Button(self.okno, text = 'O',
+            command = lambda:self.spremeni_vzorec('O'), bg = 'SlateGray2')
+        o.grid(row = 3, column = 11, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(o) #nekje tukaj še napaka
+        p = tk.Button(self.okno, text = 'P',
+            command = lambda:self.spremeni_vzorec('P'), bg = 'SlateGray2')
+        p.grid(row = 3, column = 13, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(p)
+        r = tk.Button(self.okno, text = 'R',
+            command = lambda:self.spremeni_vzorec('R'), bg = 'SlateGray2')
+        r.grid(row = 3, column = 15, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(r)
+        s = tk.Button(self.okno, text = 'S',
+            command = lambda:self.spremeni_vzorec('S'), bg = 'SlateGray2')
+        s.grid(row = 3, column = 17, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(s)
+        š = tk.Button(self.okno, text = 'Š',
+        command = lambda:self.spremeni_vzorec('Š'), bg = 'SlateGray2')
+        š.grid(row = 3, column = 19, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(š)
+        t = tk.Button(self.okno, text = 'T',
+            command = lambda:self.spremeni_vzorec('T'), bg = 'SlateGray3')
+        t.grid(row = 4, column = 6, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(t)
+        u = tk.Button(self.okno, text = 'U',
+            command = lambda:self.spremeni_vzorec('U'), bg = 'SlateGray3')
+        u.grid(row = 4, column = 8, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(u)
+        v = tk.Button(self.okno, text = 'V',
+            command = lambda:self.spremeni_vzorec('V'), bg = 'SlateGray3')
+        v.grid(row = 4, column = 10, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(v)
+        z = tk.Button(self.okno, text = 'Z',
+            command = lambda:self.spremeni_vzorec('Z'), bg = 'SlateGray3')
+        z.grid(row = 4, column = 12, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(z)
+        ž = tk.Button(self.okno, text = 'Ž',
+            command = lambda:self.spremeni_vzorec('Ž'), bg = 'SlateGray3')
+        ž.grid(row = 4, column = 14, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
+        self.seznam.append(ž)
 
         # Dodamo funkcijo ki zažene grafični vmesnik
         self.okno.mainloop()
@@ -113,6 +184,7 @@ class Vislice:
         global zmage
         global porazi
         if crka in self.razdeljena_beseda:
+            self.seznam[self.slovar_crk.index(crka)-1].config(bg = 'medium sea green')
             for i, value in enumerate(self.razdeljena_beseda):
                 if value == str(crka):
                     self.vzorec[i] = value.replace('__', crka)
@@ -141,8 +213,8 @@ class Vislice:
                             command = lambda: self.okno.destroy(),
                             bg = 'tomato')
                 konec_igre.grid(row = 3, column = 3, ipadx = 10)
-                center(zakljucek, 130, 80)
         else:
+            self.seznam[self.slovar_crk.index(crka)-1].config(bg = 'tomato')
             # Če se vnešena črka ne ujema z nobeno črko v besedi se začne
             # izrisovati slika. Igralec ima na voljo 9 napačnih vnosov, pri
             # desetem je igra izgubljena, prikaže se podobno okno kot pri
@@ -181,7 +253,7 @@ class Vislice:
                             'Iskana beseda: {}\n'+
                             'Število zmag: {}\n'+
                             'Število porazov: {}').format(self.beseda, zmage,
-                            porazi), anchor = 'center', width=30)
+                            porazi), anchor = 'center', width = 30)
                 poskusi.grid(row = 0, rowspan = 4, column = 1, columnspan = 3)
                 nov_level = tk.Button(zakljucek, text='Nova igra',
                             command= lambda: self.nova_igra(zakljucek),
@@ -191,7 +263,6 @@ class Vislice:
                             command = lambda: self.okno.destroy(),
                             bg = 'tomato')
                 konec_igre.grid(row = 5, column = 3, ipadx = 10)
-                center(zakljucek, 210, 100)
 
 # Na koncu še zaženemo program
 Vislice()
