@@ -34,7 +34,7 @@ class Vislice:
         self.slika.grid(row = 5, column = 1, columnspan = 20)
         self.polje = tk.Label(text=' '.join(self.vzorec))
         self.polje.grid(row = 1, column = 1, columnspan = 20)
-        self.slovar_crk = ['O', 'A', 'B', 'C', 'Č', 'D', 'E', 'F', 'G', 'H',
+        self.slovar_crk = ['A', 'B', 'C', 'Č', 'D', 'E', 'F', 'G', 'H',
                         'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S','Š',
                         'T', 'U', 'V', 'Z', 'Ž']
         self.seznam = []
@@ -46,7 +46,7 @@ class Vislice:
     def izpisi_vzorec(self, beseda):
         vzorec = []
         for x in range(len(self.beseda)):
-            vzorec.append('__')
+            vzorec.append('__ ')
         return vzorec
 
     # Besedo razdelimo na črke, da se bodo le te lahko menjale pri spremembi
@@ -136,7 +136,7 @@ class Vislice:
         o = tk.Button(self.okno, text = 'O',
             command = lambda:self.spremeni_vzorec('O'), bg = 'SlateGray2')
         o.grid(row = 3, column = 11, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
-        self.seznam.append(o) #nekje tukaj še napaka
+        self.seznam.append(o)
         p = tk.Button(self.okno, text = 'P',
             command = lambda:self.spremeni_vzorec('P'), bg = 'SlateGray2')
         p.grid(row = 3, column = 13, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
@@ -184,7 +184,7 @@ class Vislice:
         global zmage
         global porazi
         if crka in self.razdeljena_beseda:
-            self.seznam[self.slovar_crk.index(crka)-1].config(bg = 'medium sea green')
+            self.seznam[self.slovar_crk.index(crka)].destroy()
             for i, value in enumerate(self.razdeljena_beseda):
                 if value == str(crka):
                     self.vzorec[i] = value.replace('__', crka)
@@ -214,7 +214,7 @@ class Vislice:
                             bg = 'tomato')
                 konec_igre.grid(row = 3, column = 3, ipadx = 10)
         else:
-            self.seznam[self.slovar_crk.index(crka)-1].config(bg = 'tomato')
+            self.seznam[self.slovar_crk.index(crka)].destroy()
             # Če se vnešena črka ne ujema z nobeno črko v besedi se začne
             # izrisovati slika. Igralec ima na voljo 9 napačnih vnosov, pri
             # desetem je igra izgubljena, prikaže se podobno okno kot pri
