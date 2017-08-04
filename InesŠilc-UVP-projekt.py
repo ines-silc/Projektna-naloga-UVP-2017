@@ -12,8 +12,6 @@ def besede_v_seznam(ime_datoteke):
 
 seznam_besed = besede_v_seznam('Besede.txt')
 
-# self.slovar črk rabimo za abecedo v grafičnem vmesniku
-
 # Na začetku nastavimo števca zmag in porazov, da lahko igralec ve koliko iger
 # je že odigral.
 zmage = 0
@@ -21,7 +19,6 @@ porazi = 0
 
 class Vislice:
 
-    # Nastavimo začetne spremenljivke
     def __init__(self):
         self.beseda = random.choice(seznam_besed)
         self.vzorec = self.izpisi_vzorec(self.beseda)
@@ -29,10 +26,10 @@ class Vislice:
         self.stevec_napacnih = 0
         self.okno = tk.Tk()
         self.okno.title('Vislice')
-        self.slika = tk.Canvas(self.okno, height=400, width=400, bd=2,
-                    relief='ridge')
+        self.slika = tk.Canvas(self.okno, height=400, width=400, bd = 1,
+                    relief='sunken')
         self.slika.grid(row = 5, column = 1, columnspan = 20)
-        self.polje = tk.Label(text=' '.join(self.vzorec))
+        self.polje = tk.Label(text='  '.join(self.vzorec))
         self.polje.grid(row = 1, column = 1, columnspan = 20)
         self.slovar_crk = ['A', 'B', 'C', 'Č', 'D', 'E', 'F', 'G', 'H',
                         'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S','Š',
@@ -40,13 +37,12 @@ class Vislice:
         self.seznam = []
         self.abeceda = self.abeceda()
 
-
     # Besedo spremenimo v vzorec oblike '__ __ ... __ __' za izpisovanje na
     # vmesniku
     def izpisi_vzorec(self, beseda):
         vzorec = []
         for x in range(len(self.beseda)):
-            vzorec.append('__ ')
+            vzorec.append('__')
         return vzorec
 
     # Besedo razdelimo na črke, da se bodo le te lahko menjale pri spremembi
@@ -64,7 +60,7 @@ class Vislice:
         self.beseda = random.choice(seznam_besed)
         self.razdeljena_beseda = self.razdeli_besedo(self.beseda)
         self.vzorec = self.izpisi_vzorec(self.beseda)
-        self.polje.config(text=' '.join(self.vzorec))
+        self.polje.config(text='  '.join(self.vzorec))
         pop_up_okence.destroy()
         self.seznam = []
         self.abeceda()
@@ -174,7 +170,6 @@ class Vislice:
         ž.grid(row = 4, column = 14, columnspan = 2, sticky = 'w'+'e'+'n'+'s')
         self.seznam.append(ž)
 
-        # Dodamo funkcijo ki zažene grafični vmesnik
         self.okno.mainloop()
 
     # S pomočjo izpisane abecede dobimo črko, če je v dani besedi, potem mesto
@@ -184,11 +179,11 @@ class Vislice:
         global zmage
         global porazi
         if crka in self.razdeljena_beseda:
-            self.seznam[self.slovar_crk.index(crka)].destroy()
+            self.seznam[self.slovar_crk.index(crka)].config(bg = 'gray91', state = 'disabled')
             for i, value in enumerate(self.razdeljena_beseda):
                 if value == str(crka):
                     self.vzorec[i] = value.replace('__', crka)
-            self.polje.config(text=' '.join(self.vzorec))
+            self.polje.config(text='  '.join(self.vzorec))
             if self.razdeljena_beseda == self.vzorec:
                 self.stevec_napacnih = 0
                 zmage += 1
@@ -214,7 +209,7 @@ class Vislice:
                             bg = 'tomato')
                 konec_igre.grid(row = 3, column = 3, ipadx = 10)
         else:
-            self.seznam[self.slovar_crk.index(crka)].destroy()
+            self.seznam[self.slovar_crk.index(crka)].config(bg = 'gray91', state = 'disabled')
             # Če se vnešena črka ne ujema z nobeno črko v besedi se začne
             # izrisovati slika. Igralec ima na voljo 9 napačnih vnosov, pri
             # desetem je igra izgubljena, prikaže se podobno okno kot pri
@@ -264,5 +259,4 @@ class Vislice:
                             bg = 'tomato')
                 konec_igre.grid(row = 5, column = 3, ipadx = 10)
 
-# Na koncu še zaženemo program
 Vislice()
