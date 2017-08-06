@@ -65,9 +65,6 @@ class Vislice:
         self.seznam = []
         self.abeceda()
 
-    # Sestavimo samo abecedo s pomočjo self.slovarja, ki ga imamo napisanega na
-    # začetku (ker je spremenljivki vedno ime a moramo namesto lambda: napisati
-    # lambda i = i: da funkcijo prisilimo, da vsakič naredi novo spremenljivko)
     def abeceda(self):
         a = tk.Button(self.okno, text = 'A',
             command = lambda:self.spremeni_vzorec('A'), bg = 'SlateGray1')
