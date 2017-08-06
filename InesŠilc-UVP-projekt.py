@@ -176,7 +176,8 @@ class Vislice:
         global zmage
         global porazi
         if crka in self.razdeljena_beseda:
-            self.seznam[self.slovar_crk.index(crka)].config(bg = 'gray91', state = 'disabled')
+            self.seznam[self.slovar_crk.index(crka)].config(bg = 'gray91',
+                                                            state = 'disabled')
             for i, value in enumerate(self.razdeljena_beseda):
                 if value == str(crka):
                     self.vzorec[i] = value.replace('__', crka)
@@ -206,7 +207,8 @@ class Vislice:
                             bg = 'tomato')
                 konec_igre.grid(row = 3, column = 3, ipadx = 10)
         else:
-            self.seznam[self.slovar_crk.index(crka)].config(bg = 'gray91', state = 'disabled')
+            self.seznam[self.slovar_crk.index(crka)].config(bg = 'gray91',
+                                                            state = 'disabled')
             # Če se vnešena črka ne ujema z nobeno črko v besedi se začne
             # izrisovati slika. Igralec ima na voljo 9 napačnih vnosov, pri
             # desetem je igra izgubljena, prikaže se podobno okno kot pri
